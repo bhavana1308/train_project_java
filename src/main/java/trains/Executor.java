@@ -66,6 +66,8 @@ public class Executor {
             if (pr.test(passengerTrain)) {
                 logger.info(passengerTrain.getTrainNumber() + " has required weight.");
             }
+        }
+
 
             int totalNumberOfPassengers = passengerTrains.stream()
                     .filter(train -> train instanceof PassengerTrain)
@@ -223,5 +225,5 @@ public class Executor {
             logger.info("\n" + DASH_LINE);
 
         }
+
     }
-}
