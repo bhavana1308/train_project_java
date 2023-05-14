@@ -18,6 +18,10 @@ public class PassengerTrain extends Train {
         return passengerCount;
     }
 
+    public void setPassengerCount(int passengerCount) {
+        this.passengerCount = passengerCount;
+    }
+
     public int getPassengerCount(int passengerCount)
             throws InvalidPassengerException {
         // int passengerCount = 0;
@@ -31,10 +35,6 @@ public class PassengerTrain extends Train {
                     "Passenger count cannot be Negative");
         }
         return passengerCount;
-    }
-
-    public void setPassengerCount(int passengerCount) {
-        this.passengerCount = passengerCount;
     }
 
     public void start() {
