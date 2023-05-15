@@ -25,6 +25,10 @@ public class Executor {
     final static String DASH_LINE = ("______________________________________");
     private static final Logger logger = LogManager.getLogger(Executor.class);
 
+    static {
+        logger.info("============Information about Trains===============");
+    }
+
     public static void main(String[] args) throws IOException, InvalidPassengerException {
 
         int uniqueWordsCount = FileReader.getUniqueWordCountInFile(INPUT_FILE);
@@ -139,7 +143,7 @@ public class Executor {
         logger.info("Tank Train stops are : ");
         tankTrainStops.print();
         logger.info("\n" + DASH_LINE);
-        
+
         logger.info("=================="+Trains.HIGH_SPEED.getDisplayName()+"==================");
         logger.info(arrival);
         HighSpeedTrain hstrain = new HighSpeedTrain(300, 1000, 150, "Hs456");
