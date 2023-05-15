@@ -5,19 +5,19 @@ public enum Liquid {
     CHEMICAL("Chemical liquid"),
     PETROLEUM(" Petroleum liquid");
 
-    private final String liquidType;
+    private final String displayName;
 
-    Liquid(String liquidType) {
-        this.liquidType = liquidType;
+    Liquid(String displayName) {
+        this.displayName = displayName;
     }
 
-    public String getLiquidType() {
-        return liquidType;
+    public String getDisplayName() {
+        return displayName;
     }
 
     @Override
     public String toString() {
-        return  "Tank train has "+ getLiquidType();
+        return  "Tank train has "+ getDisplayName();
 
     }
 

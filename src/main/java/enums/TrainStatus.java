@@ -5,19 +5,19 @@ public enum TrainStatus {
     ARRIVED("arrived"),
     DEPARTED("departed");
 
-    private final String trainStatus;
+    private final String displayName;
 
-    TrainStatus(String trainStatus) {
-        this.trainStatus = trainStatus;
+    TrainStatus(String displayName) {
+        this.displayName = displayName;
     }
 
-    public String getTrainStatus() {
-        return trainStatus;
+    public String getDisplayName(){
+        return displayName;
     }
 
     @Override
     public String toString() {
-        return  "Train is "+ getTrainStatus()+" at the station.";
+        return  "Train is "+ getDisplayName()+" at the station.";
     }
 
 }
