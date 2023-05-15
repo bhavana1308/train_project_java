@@ -2,7 +2,7 @@ package trains;
 
 public class TankTrain extends CargoTrain {
 
-    int liquidCount;
+    protected int liquidCount;
 
     public TankTrain(int initialWeight, int cargoWeight, int packageCount, int liquidCount, String trainNumber) {
         super(initialWeight, cargoWeight, packageCount, trainNumber);
