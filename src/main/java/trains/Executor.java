@@ -178,7 +178,6 @@ public class Executor {
         }
         logger.info("\n" + DASH_LINE);
 
-
         TicketClass firstClass = TicketClass.FIRST_CLASS;
         logger.info(firstClass);
 
