@@ -50,7 +50,6 @@ public class Executor {
         }
         passengerTrain1.start();
         passengerTrain1.stop();
-
         PassengerTrain passengerTrain2 = new PassengerTrain(1200, 100,
                 "PA5678");
         logger.info(passengerTrain2);
@@ -61,11 +60,9 @@ public class Executor {
         }
         passengerTrain2.start();
         passengerTrain2.stop();
-
         List<Train> passengerTrains = new ArrayList<>();
         passengerTrains.add(passengerTrain1);
         passengerTrains.add(passengerTrain2);
-
         ICustomFunctional<Train> pr = passengerTrain -> (passengerTrain.getInitialWeight() > 200 && passengerTrain.getTotalWeight() > 1000);
         for (Train passengerTrain : passengerTrains) {
             if (pr.test(passengerTrain)) {
@@ -91,7 +88,6 @@ public class Executor {
         } catch (InvalidPackageException e) {
             logger.error("Invalid Package count", e);
         }
-
         CargoTrain cargoTrain2 = new CargoTrain(1000, 5000, 800, "Ca5678");
         logger.info(cargoTrain2);
         cargoTrain2.start();
@@ -101,7 +97,6 @@ public class Executor {
         List<Train> cargoTrains = new ArrayList<>();
         cargoTrains.add(cargoTrain1);
         cargoTrains.add(cargoTrain2);
-
         ICustomFunctional<Train> cr = cargoTrain -> (cargoTrain.getInitialWeight() > 200 && cargoTrain.getTotalWeight() > 1000);
         for (Train cargoTrain : cargoTrains) {
             if (cr.test(cargoTrain)) {
@@ -119,7 +114,6 @@ public class Executor {
         logger.info(liquid1);
         Liquid liquidType1 = Liquid.PETROLEUM;
         logger.info(liquidType1);
-
         TankTrain liquid2 = new TankTrain(3000, 5000, 300, 9000, "Tank9234");
         logger.info(liquid2);
         Liquid liquidType2 = Liquid.CHEMICAL;
@@ -127,7 +121,6 @@ public class Executor {
         List<Train> tankTrainList = new ArrayList<>();
         tankTrainList.add(liquid1);
         tankTrainList.add(liquid2);
-
         ICustomFunctional<TankTrain> tc = TankTrain -> (TankTrain.getLiquidCount() > 8000);
         for (Train tankTrain : tankTrainList) {
             if (tc.test((TankTrain) tankTrain)) {
@@ -138,7 +131,6 @@ public class Executor {
                 .filter(train -> train instanceof TankTrain)
                 .mapToInt(train -> ((TankTrain) train).getLiquidCount()).sum();
         logger.info("Total liquid in tank train is " + totalLiquidUsed + " cc.");
-
         CustomLinkedList<String> tankTrainStops = new CustomLinkedList<>();
         tankTrainStops.add("St.louis");
         tankTrainStops.add("Maryland");
@@ -154,7 +146,7 @@ public class Executor {
         try {
             hstrain.getMaxSpeed(700);
         } catch (OverSpeedException e) {
-            logger.error("High speed Train is overspeeding", e);
+            logger.error("High speed Train is over speeding", e);
         }
 
         TrainRoute route = new TrainRoute(1234, "Chicago", "NewYork", 15, 5);
@@ -187,14 +179,11 @@ public class Executor {
         passengers.add(new Passenger("Sarah", "James", 22));
         passengers.add(new Passenger("Farah", "John", 65));
         logger.info(passengers);
-
         Comparator<Passenger> compareByName =
                 Comparator.comparing(Passenger::getFirstName).thenComparing(Passenger::getLastName);
-
         List<Passenger> sortedList = passengers.stream().sorted(compareByName)
                 .collect(Collectors.toList());
-        logger.info(sortedList);
-
+        logger.info("sorted List of passengers= "+sortedList);
         Predicate<Passenger> filterByAge1 = (passenger) -> passenger.getAge() >= 65;
         for (Passenger passenger : passengers) {
             if (filterByAge1.test(passenger)) {
@@ -234,20 +223,16 @@ public class Executor {
             logger.info("Passenger trip fare " + trip1.getPassengerFare());
             trip1.printTicket();
             trip2.printTicket();
-
             List<TicketPrint> totalTickets = new ArrayList<>();
             totalTickets.add(trip1);
             totalTickets.add(trip2);
-
             double totalPassengerFare = totalTickets.stream()
                     .filter(train -> train instanceof TicketPrint)
                     .mapToDouble(train -> ((TicketDetails) train).getPassengerFare()).sum();
             logger.info("Total Passenger Fare " + totalPassengerFare + " from " + totalTickets.size() + " Trips.");
-
         } catch (DistanceCalculationException | InvalidStationException e) {
             e.printStackTrace();
             logger.debug("Distance calculation exception", e);
-
         }
         logger.info("\n" + DASH_LINE);
     }
