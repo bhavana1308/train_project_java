@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -63,17 +64,24 @@ public class Executor {
         List<Train> passengerTrains = new ArrayList<>();
         passengerTrains.add(passengerTrain1);
         passengerTrains.add(passengerTrain2);
-        ICustomFunctional<Train> pr = passengerTrain -> (passengerTrain.getInitialWeight() > 200 && passengerTrain.getTotalWeight() > 1000);
+        //Predicate
+        Predicate<Train> pr = passengerTrain -> (passengerTrain.getInitialWeight() > 200 && passengerTrain.getTotalWeight() > 1000);
         for (Train passengerTrain : passengerTrains) {
             if (pr.test(passengerTrain)) {
                 logger.info(passengerTrain.getTrainNumber() + " has required weight.");
             }
         }
+        //Streams
         int totalNumberOfPassengers = passengerTrains.stream()
                 .filter(train -> train instanceof PassengerTrain)
                 .mapToInt(train -> ((PassengerTrain) train).getPassengerCount())
                 .sum();
-        logger.info("Total Number of Passengers are " + totalNumberOfPassengers + " from  " + passengerTrains.size() + " Passenger Trains.");
+        logger.info("Total Number of Passengers are " + totalNumberOfPassengers + " from  "
+                + passengerTrains.size() + " Passenger Trains.");
+
+        //Function Interface Lambda
+        Function<Integer, Integer> half = a -> a / 2;
+        System.out.println("Median number of passengers " + half.apply(totalNumberOfPassengers));
         logger.info("\n" + DASH_LINE);
 
         logger.info("==================" + Trains.CARGO.getDisplayName() + "==================");
@@ -97,12 +105,14 @@ public class Executor {
         List<Train> cargoTrains = new ArrayList<>();
         cargoTrains.add(cargoTrain1);
         cargoTrains.add(cargoTrain2);
-        ICustomFunctional<Train> cr = cargoTrain -> (cargoTrain.getInitialWeight() > 200 && cargoTrain.getTotalWeight() > 1000);
+        //Predicate Lambda
+        Predicate<Train> cr = cargoTrain -> (cargoTrain.getInitialWeight() > 200 && cargoTrain.getTotalWeight() > 1000);
         for (Train cargoTrain : cargoTrains) {
             if (cr.test(cargoTrain)) {
                 logger.info(cargoTrain.getTrainNumber() + " has required weight.");
             }
         }
+        //streams Lambda
         int totalCargoWeights = cargoTrains.stream().filter(train -> train instanceof CargoTrain)
                 .mapToInt(train -> ((CargoTrain) train).getCargoWeight()).sum();
         logger.info("Total Cargo Weight is " + totalCargoWeights + " from " + cargoTrains.size() + " Cargo Trains");
@@ -121,16 +131,22 @@ public class Executor {
         List<Train> tankTrainList = new ArrayList<>();
         tankTrainList.add(liquid1);
         tankTrainList.add(liquid2);
-        ICustomFunctional<TankTrain> tc = TankTrain -> (TankTrain.getLiquidCount() > 8000);
+        //Predicate lambda
+        Predicate<TankTrain> tc = TankTrain -> (TankTrain.getLiquidCount() > 8000);
         for (Train tankTrain : tankTrainList) {
             if (tc.test((TankTrain) tankTrain)) {
                 logger.info(tankTrain.getTrainNumber() + " has required weight liquid.");
             }
         }
+        //stream lambda
         int totalLiquidUsed = tankTrainList.stream()
                 .filter(train -> train instanceof TankTrain)
                 .mapToInt(train -> ((TankTrain) train).getLiquidCount()).sum();
         logger.info("Total liquid in tank train is " + totalLiquidUsed + " cc.");
+        //function with parameters lambda
+        Function<Integer, Integer> halfLiquid = a -> a / 2;
+        System.out.println("Median Liquid " + halfLiquid.apply(totalLiquidUsed));
+
         CustomLinkedList<String> tankTrainStops = new CustomLinkedList<>();
         tankTrainStops.add("St.louis");
         tankTrainStops.add("Maryland");
@@ -179,22 +195,31 @@ public class Executor {
         passengers.add(new Passenger("Sarah", "James", 22));
         passengers.add(new Passenger("Farah", "John", 65));
         logger.info(passengers);
+        //sorting streams lambda
         Comparator<Passenger> compareByName =
                 Comparator.comparing(Passenger::getFirstName).thenComparing(Passenger::getLastName);
         List<Passenger> sortedList = passengers.stream().sorted(compareByName)
                 .collect(Collectors.toList());
-        logger.info("sorted List of passengers= "+sortedList);
+        logger.info("sorted List of passengers= " + sortedList);
+        //predicate lambda
         Predicate<Passenger> filterByAge1 = (passenger) -> passenger.getAge() >= 65;
         for (Passenger passenger : passengers) {
             if (filterByAge1.test(passenger)) {
                 System.out.println(passenger.getFirstName() + " " + passenger.getLastName() + " is senior citizen. Reserve senior seats");
             }
         }
+        //predicate lambda
         Predicate<Passenger> filterByAge2 = (passenger) -> passenger.getAge() <= 2;
         for (Passenger passenger : passengers) {
             if (filterByAge2.test(passenger)) {
                 System.out.println(passenger.getFirstName() + " " + passenger.getLastName() + " is a Toddler. Reserve Bassinet seats");
             }
+        }
+        // custom functional interface with lambda
+        IFunc<String, Integer> fn = n -> n.length();
+        for (Passenger passenger : passengers) {
+            System.out.println("Length of Passenger name " + passenger.getFirstName() + " "
+                    + fn.action(passenger.getFirstName()));
         }
         logger.info("\n" + DASH_LINE);
 
@@ -226,6 +251,7 @@ public class Executor {
             List<TicketPrint> totalTickets = new ArrayList<>();
             totalTickets.add(trip1);
             totalTickets.add(trip2);
+            // stream lambda
             double totalPassengerFare = totalTickets.stream()
                     .filter(train -> train instanceof TicketPrint)
                     .mapToDouble(train -> ((TicketDetails) train).getPassengerFare()).sum();
