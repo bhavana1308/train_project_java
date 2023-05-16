@@ -180,7 +180,7 @@ public class Executor {
         logger.info("\n" + DASH_LINE);
 
         List<Passenger> passengers = new ArrayList<>();
-        passengers.add(new Passenger("Bon","James",9));
+        passengers.add(new Passenger("Bon","James",1));
         passengers.add(new Passenger("Sarah","James",22));
         passengers.add(new Passenger("Farah","John",65));
         passengers.add(new Passenger("Mary","Keller",72));
@@ -193,10 +193,10 @@ public class Executor {
             }
         }
 
-        Predicate<Passenger> filterByAge2 = (passenger) -> passenger.getAge() <=10 ;
+        Predicate<Passenger> filterByAge2 = (passenger) -> passenger.getAge() <=2 ;
         for(Passenger passenger:passengers) {
             if (filterByAge2.test(passenger)) {
-                System.out.println( passenger.getFirstName()+" "+passenger.getLastName()+" is a Kid. Reserve kids seats");
+                System.out.println( passenger.getFirstName()+" "+passenger.getLastName()+" is a Toddler. Reserve Bassinet seats");
             }
         }
         logger.info("\n" + DASH_LINE);
