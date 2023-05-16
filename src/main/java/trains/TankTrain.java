@@ -14,7 +14,7 @@ public class TankTrain extends CargoTrain {
     }
 
     public String toString() {
-        return getTrainNumber()+" has liquid of " + liquidCount + "cc";
+        return getTrainNumber() + " has liquid of " + liquidCount + "cc";
 
     }
 }

@@ -6,9 +6,9 @@ import java.util.Collection;
 
 public abstract class Train {
 
+    private final String trainNumber;
     protected Collection<Train> trainTypes;
     private int initialWeight;
-    private final String trainNumber;
 
     public Train(int initialWeight, String trainNumber) {
         trainTypes = new ArrayList<Train>();

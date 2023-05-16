@@ -1,4 +1,5 @@
 package trains;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class Passenger {
         return " Passenger Details : " +
                 " firstName= " + firstName +
                 " lastName= " + lastName +
-                " age=" + age +"\n" ;
+                " age=" + age + "\n";
     }
 
 }

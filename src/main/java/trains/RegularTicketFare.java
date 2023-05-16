@@ -11,6 +11,6 @@ public class RegularTicketFare extends TicketFare {
     public double calculateFare(double distance) {
         return baseFare + additionalFare * distance;
     }
-}
 
+}
 

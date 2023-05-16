@@ -1,6 +1,6 @@
 package trains;
 
-public interface TicketCount{
+public interface TicketCount {
 
     int getPassengerCount();
 

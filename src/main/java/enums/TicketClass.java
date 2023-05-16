@@ -17,7 +17,7 @@ public enum TicketClass {
 
     @Override
     public String toString() {
-        return "Passenger Train has " +getDisplayName();
+        return "Passenger Train has " + getDisplayName();
     }
 
 }

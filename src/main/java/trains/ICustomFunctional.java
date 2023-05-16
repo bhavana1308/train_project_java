@@ -2,6 +2,6 @@ package trains;
 
 public interface ICustomFunctional<T> {
 
-        boolean test(T t);
-    }
+    boolean test(T t);
+}
 

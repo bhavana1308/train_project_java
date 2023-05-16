@@ -13,8 +13,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 
 public class Executor {
@@ -180,23 +182,29 @@ public class Executor {
         logger.info("\n" + DASH_LINE);
 
         List<Passenger> passengers = new ArrayList<>();
-        passengers.add(new Passenger("Bon","James",1));
-        passengers.add(new Passenger("Sarah","James",22));
-        passengers.add(new Passenger("Farah","John",65));
-        passengers.add(new Passenger("Mary","Keller",72));
+        passengers.add(new Passenger("Mary", "Keller", 72));
+        passengers.add(new Passenger("Bon", "James", 1));
+        passengers.add(new Passenger("Sarah", "James", 22));
+        passengers.add(new Passenger("Farah", "John", 65));
         logger.info(passengers);
 
+        Comparator<Passenger> compareByName =
+                Comparator.comparing(Passenger::getFirstName).thenComparing(Passenger::getLastName);
+
+        List<Passenger> sortedList = passengers.stream().sorted(compareByName)
+                .collect(Collectors.toList());
+        logger.info(sortedList);
+
         Predicate<Passenger> filterByAge1 = (passenger) -> passenger.getAge() >= 65;
-        for(Passenger passenger:passengers) {
+        for (Passenger passenger : passengers) {
             if (filterByAge1.test(passenger)) {
-                System.out.println( passenger.getFirstName()+" "+passenger.getLastName()+" is senior citizen. Reserve senior seats");
+                System.out.println(passenger.getFirstName() + " " + passenger.getLastName() + " is senior citizen. Reserve senior seats");
             }
         }
-
-        Predicate<Passenger> filterByAge2 = (passenger) -> passenger.getAge() <=2 ;
-        for(Passenger passenger:passengers) {
+        Predicate<Passenger> filterByAge2 = (passenger) -> passenger.getAge() <= 2;
+        for (Passenger passenger : passengers) {
             if (filterByAge2.test(passenger)) {
-                System.out.println( passenger.getFirstName()+" "+passenger.getLastName()+" is a Toddler. Reserve Bassinet seats");
+                System.out.println(passenger.getFirstName() + " " + passenger.getLastName() + " is a Toddler. Reserve Bassinet seats");
             }
         }
         logger.info("\n" + DASH_LINE);

@@ -17,7 +17,7 @@ public enum Liquid {
 
     @Override
     public String toString() {
-        return  "Tank train has "+ getDisplayName();
+        return "Tank train has " + getDisplayName();
 
     }
 

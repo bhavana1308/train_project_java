@@ -11,13 +11,13 @@ public enum TrainStatus {
         this.displayName = displayName;
     }
 
-    public String getDisplayName(){
+    public String getDisplayName() {
         return displayName;
     }
 
     @Override
     public String toString() {
-        return  "Train is "+ getDisplayName()+" at the station.";
+        return "Train is " + getDisplayName() + " at the station.";
     }
 
 }

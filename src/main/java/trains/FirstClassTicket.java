@@ -1,7 +1,7 @@
 package trains;
 
 
-public class FirstClassTicket implements TicketCount{
+public class FirstClassTicket implements TicketCount {
 
     private final int passengerCount;
 

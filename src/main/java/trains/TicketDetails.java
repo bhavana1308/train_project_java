@@ -2,7 +2,7 @@ package trains;
 
 import java.util.Objects;
 
-public class TicketDetails implements TicketPrint{
+public class TicketDetails implements TicketPrint {
 
     private double passengerFare;
     private String fromStation;
@@ -55,8 +55,8 @@ public class TicketDetails implements TicketPrint{
 
     @Override
     public void printTicket() {
-       System.out.println( " Ticket Fare=" + passengerFare + ", From = "
-                + fromStation + ", To = " + toStation );
+        System.out.println(" Ticket Fare=" + passengerFare + ", From = "
+                + fromStation + ", To = " + toStation);
     }
 }
 

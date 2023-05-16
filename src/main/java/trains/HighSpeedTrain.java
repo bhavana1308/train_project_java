@@ -21,7 +21,7 @@ public class HighSpeedTrain extends PassengerTrain implements SpeedLimit {
 
     @Override
     public String toString() {
-        return "High Speed Train maximum speed is " + maxSpeed+ "kmph\n";
+        return "High Speed Train maximum speed is " + maxSpeed + "kmph\n";
     }
 
 
