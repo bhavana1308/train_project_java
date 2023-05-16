@@ -1,12 +1,9 @@
 package utils;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Parameter;
+import java.lang.reflect.*;
 
 
-    public class Reflection {
+public class Reflection {
 
         public static void main(String[] args) throws ClassNotFoundException {
 
@@ -34,6 +31,7 @@ import java.lang.reflect.Parameter;
             for (Method method : methods) {
                 System.out.println("Method name: \t" + method);
                 System.out.println("Method return type : \t" + method.getReturnType());
+                System.out.println("Modifier: " + Modifier.toString(method.getModifiers()));
                 System.out.println("Method parameter count: \t" + method.getParameterCount());
                 System.out.println();
                 Parameter[] parameters = method.getParameters();
