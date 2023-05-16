@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 
 public class Executor {
@@ -36,7 +37,7 @@ public class Executor {
 
         TrainStatus arrival = TrainStatus.ARRIVED;
         TrainStatus departure = TrainStatus.DEPARTED;
-        logger.info("=================="+Trains.PASSENGER_TRAIN.getDisplayName()+"=================");
+        logger.info("==================" + Trains.PASSENGER_TRAIN.getDisplayName() + "=================");
 
         PassengerTrain passengerTrain1 = new PassengerTrain(1000, 75, "PA1234");
         logger.info(passengerTrain1);
@@ -73,10 +74,10 @@ public class Executor {
                 .filter(train -> train instanceof PassengerTrain)
                 .mapToInt(train -> ((PassengerTrain) train).getPassengerCount())
                 .sum();
-        logger.info("Total Number of Passengers are "+totalNumberOfPassengers+" from  "+passengerTrains.size() +" Passenger Trains.");
+        logger.info("Total Number of Passengers are " + totalNumberOfPassengers + " from  " + passengerTrains.size() + " Passenger Trains.");
         logger.info("\n" + DASH_LINE);
 
-        logger.info("=================="+Trains.CARGO.getDisplayName()+"==================");
+        logger.info("==================" + Trains.CARGO.getDisplayName() + "==================");
         CargoTrain cargoTrain1 = new CargoTrain(1000, 1000, 300, "Ca1234");
         logger.info(cargoTrain1);
         cargoTrain1.start();
@@ -110,7 +111,7 @@ public class Executor {
         logger.info("Total Cargo Weight is " + totalCargoWeights + " from " + cargoTrains.size() + " Cargo Trains");
         logger.info("\n" + DASH_LINE);
 
-        logger.info("=================="+Trains.TANK_TRAIN.getDisplayName()+"==================");
+        logger.info("==================" + Trains.TANK_TRAIN.getDisplayName() + "==================");
         logger.info(arrival);
         TankTrain liquid1 = new TankTrain(2000, 5000, 300, 7000, "Tank1234");
         logger.info(liquid1);
@@ -144,7 +145,7 @@ public class Executor {
         tankTrainStops.print();
         logger.info("\n" + DASH_LINE);
 
-        logger.info("=================="+Trains.HIGH_SPEED.getDisplayName()+"==================");
+        logger.info("==================" + Trains.HIGH_SPEED.getDisplayName() + "==================");
         logger.info(arrival);
         HighSpeedTrain hstrain = new HighSpeedTrain(300, 1000, 150, "Hs456");
         logger.info(hstrain);
@@ -167,7 +168,7 @@ public class Executor {
         highSpeedTrainStops.print();
         logger.info("\n" + DASH_LINE);
 
-        logger.info("=================="+Trains.LOW_SPEED.getDisplayName()+"==================");
+        logger.info("==================" + Trains.LOW_SPEED.getDisplayName() + "==================");
         logger.info(departure);
         LowSpeedTrain lstrain = new LowSpeedTrain(1000, 75, "LS123", 150);
         logger.info(lstrain);
@@ -175,6 +176,28 @@ public class Executor {
             lstrain.getMaxSpeed(200);
         } catch (OverSpeedException e) {
             logger.error("Low Speed Train is overspeeding", e);
+        }
+        logger.info("\n" + DASH_LINE);
+
+        List<Passenger> passengers = new ArrayList<>();
+        passengers.add(new Passenger("Bon","James",9));
+        passengers.add(new Passenger("Sarah","James",22));
+        passengers.add(new Passenger("Farah","John",65));
+        passengers.add(new Passenger("Mary","Keller",72));
+        logger.info(passengers);
+
+        Predicate<Passenger> filterByAge1 = (passenger) -> passenger.getAge() >= 65;
+        for(Passenger passenger:passengers) {
+            if (filterByAge1.test(passenger)) {
+                System.out.println( passenger.getFirstName()+" "+passenger.getLastName()+" is senior citizen. Reserve senior seats");
+            }
+        }
+
+        Predicate<Passenger> filterByAge2 = (passenger) -> passenger.getAge() <=10 ;
+        for(Passenger passenger:passengers) {
+            if (filterByAge2.test(passenger)) {
+                System.out.println( passenger.getFirstName()+" "+passenger.getLastName()+" is a Kid. Reserve kids seats");
+            }
         }
         logger.info("\n" + DASH_LINE);
 
@@ -189,6 +212,7 @@ public class Executor {
         logger.info("\n" + DASH_LINE);
 
         logger.info(Currency.DOLLARS.getDisplayName());
+
         try {
             TicketFare fare = new RegularTicketFare();
             TicketDetails trip1 = new TicketDetails(
@@ -218,7 +242,7 @@ public class Executor {
 
         }
         logger.info("\n" + DASH_LINE);
-
     }
+
 
 }
