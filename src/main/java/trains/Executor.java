@@ -6,15 +6,23 @@ import exception.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import threads.TrainRunnable;
+import threads.TrainThread;
 import utils.CommonUtility;
+import utils.ConnectionPool;
 import utils.FileReader;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -28,15 +36,45 @@ public class Executor {
             "Texas", "Nevada", "Houston");
     final static String DASH_LINE = ("______________________________________");
     private static final Logger logger = LogManager.getLogger(Executor.class);
+    private static final int POOL_SIZE=3;
+    private static final int THREAD_POOL_SIZE=7;
 
+    //static block
     static {
         logger.info("============Information about Trains===============");
     }
 
-    public static void main(String[] args) throws IOException, InvalidPassengerException {
+    public static void main(String[] args) throws IOException {
 
         int uniqueWordsCount = FileReader.getUniqueWordCountInFile(INPUT_FILE);
         FileUtils.writeStringToFile(OUTPUT_FILE, Integer.toString(uniqueWordsCount));
+
+        Thread train1=new Thread(new TrainRunnable("Train1"));
+        Thread train2=new Thread(new TrainRunnable("Train2"));
+        train1.start();
+        train2.start();
+
+        Thread train3=new TrainThread("Train3");
+        Thread train4=new TrainThread("Train4");
+        train3.start();
+        train4.start();
+
+        ConnectionPool pool=ConnectionPool.getInstance(POOL_SIZE);
+        ExecutorService executor= Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+        List<CompletableFuture<Connection>> futures=new ArrayList<>();
+        for(int i=0;i<7;i++){
+            CompletableFuture<Connection> future=CompletableFuture.supplyAsync(pool::getConnection,executor);
+            futures.add(future);
+        }
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+        futures.forEach(f->{
+            try{
+                System.out.println("Obtained Connection "  + f.get());
+            } catch (ExecutionException |InterruptedException e ) {
+                e.printStackTrace();
+
+            }
+        });
 
         TrainStatus arrival = TrainStatus.ARRIVED;
         TrainStatus departure = TrainStatus.DEPARTED;
