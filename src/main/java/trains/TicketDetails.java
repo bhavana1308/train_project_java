@@ -18,7 +18,7 @@ public class TicketDetails implements TicketPrint {
         return passengerFare;
     }
 
-    public void setPassengerFare(double tripFare) {
+    public void setPassengerFare(double passengerFare) {
         this.passengerFare = passengerFare;
     }
 
