@@ -65,6 +65,7 @@ public class Executor {
         List<Train> passengerTrains = new ArrayList<>();
         passengerTrains.add(passengerTrain1);
         passengerTrains.add(passengerTrain2);
+
         //Predicate
         Predicate<Train> pr = passengerTrain -> (passengerTrain.getInitialWeight() > 200 && passengerTrain.getTotalWeight() > 1000);
         for (Train passengerTrain : passengerTrains) {
@@ -106,6 +107,7 @@ public class Executor {
         List<Train> cargoTrains = new ArrayList<>();
         cargoTrains.add(cargoTrain1);
         cargoTrains.add(cargoTrain2);
+
         //Predicate Lambda
         Predicate<Train> cr = cargoTrain -> (cargoTrain.getInitialWeight() > 200 && cargoTrain.getTotalWeight() > 1000);
         for (Train cargoTrain : cargoTrains) {
@@ -113,6 +115,7 @@ public class Executor {
                 logger.info(cargoTrain.getTrainNumber() + " has required weight.");
             }
         }
+
         //streams Lambda
         int totalCargoWeights = cargoTrains.stream().filter(train -> train instanceof CargoTrain)
                 .mapToInt(train -> ((CargoTrain) train).getCargoWeight()).sum();
@@ -139,6 +142,7 @@ public class Executor {
                 logger.info(tankTrain.getTrainNumber() + " has required weight liquid.");
             }
         }
+
         //stream lambda
         int totalLiquidUsed = tankTrainList.stream()
                 .filter(train -> train instanceof TankTrain)
@@ -196,12 +200,14 @@ public class Executor {
         passengers.add(new Passenger("Sarah", "James", 22));
         passengers.add(new Passenger("Farah", "John", 65));
         logger.info(passengers);
+
         //sorting streams lambda
         Comparator<Passenger> compareByName =
                 Comparator.comparing(Passenger::getFirstName).thenComparing(Passenger::getLastName);
         List<Passenger> sortedList = passengers.stream().sorted(compareByName)
                 .collect(Collectors.toList());
         logger.info("sorted List of passengers= " + sortedList);
+
         //predicate lambda
         Predicate<Passenger> filterByAge1 = (passenger) -> passenger.getAge() >= 65;
         for (Passenger passenger : passengers) {
@@ -209,13 +215,16 @@ public class Executor {
                 System.out.println(passenger.getFirstName() + " " + passenger.getLastName() + " is senior citizen. Reserve senior seats");
             }
         }
+
         //predicate lambda
         Predicate<Passenger> filterByAge2 = (passenger) -> passenger.getAge() <= 2;
         for (Passenger passenger : passengers) {
             if (filterByAge2.test(passenger)) {
-                System.out.println(passenger.getFirstName() + " " + passenger.getLastName() + " is a Toddler. Reserve Bassinet seats");
+                System.out.println(passenger.getFirstName() + " " + passenger.getLastName() +
+                        " is a Toddler. Reserve Bassinet seats");
             }
         }
+
         // custom functional interface with lambda
         IFunc<String, Integer> fn = n -> n.length();
         for (Passenger passenger : passengers) {
@@ -252,6 +261,7 @@ public class Executor {
             List<TicketPrint> totalTickets = new ArrayList<>();
             totalTickets.add(trip1);
             totalTickets.add(trip2);
+            
             // stream lambda
             double totalPassengerFare = totalTickets.stream()
                     .filter(train -> train instanceof TicketPrint)

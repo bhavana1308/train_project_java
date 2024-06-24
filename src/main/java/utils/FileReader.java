@@ -12,6 +12,7 @@ import java.util.Set;
 public class FileReader {
 
     public static int getUniqueWordCountInFile(String file) throws IOException {
+
         File inputFile = new File(file);
         LineIterator lineIterator = FileUtils.lineIterator(inputFile);
         Set<String> uniqueWords = new HashSet<>();
